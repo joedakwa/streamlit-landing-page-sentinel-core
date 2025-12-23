@@ -14,7 +14,7 @@ st.set_page_config(
 )
 
 # Configuration (set in Streamlit secrets or environment)
-TIKTOK_USERNAME = st.secrets.get("TIKTOK_USERNAME", os.getenv("TIKTOK_USERNAME", "joseph.dakwa"))
+TIKTOK_USERNAME = st.secrets.get("TIKTOK_USERNAME", os.getenv("TIKTOK_USERNAME", "joseph.dakwa"))  # @joseph.dakwa
 TIKTOK_PIXEL_ID = st.secrets.get("TIKTOK_PIXEL_ID", os.getenv("TIKTOK_PIXEL_ID", "YOUR_PIXEL_ID"))
 
 # Custom CSS
@@ -186,26 +186,21 @@ st.markdown("---")
 st.markdown("### Also Follow on TikTok")
 st.markdown("Get daily insights delivered to your TikTok feed")
 
-# Track Follow Button Click
+# TikTok Follow Button - Direct link (more reliable than JavaScript)
 tiktok_url = f"https://www.tiktok.com/@{TIKTOK_USERNAME}"
-follow_button_clicked = st.button("🚀 Follow @{} on TikTok".format(TIKTOK_USERNAME), key="follow_button", use_container_width=True)
 
-if follow_button_clicked:
-    # Track conversion event
-    conversion_script = f"""
-    <script>
-        if (typeof ttq !== 'undefined') {{
-            ttq.track('ClickButton', {{
-                content_type: 'button',
-                content_name: 'Follow on TikTok',
-                content_category: 'engagement'
-            }});
-        }}
-        window.open('{tiktok_url}', '_blank');
-    </script>
-    """
-    st.markdown(conversion_script, unsafe_allow_html=True)
-    st.info(f"🚀 Opening TikTok in a new tab...")
+# Create styled button link with TikTok Pixel tracking
+follow_button_html = f"""
+<a href="{tiktok_url}" 
+   target="_blank" 
+   rel="noopener noreferrer"
+   onclick="if (typeof ttq !== 'undefined') {{ ttq.track('ClickButton', {{ content_type: 'button', content_name: 'Follow on TikTok', content_category: 'engagement' }}); }}"
+   style="display: inline-block; width: 100%; text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1rem 2rem; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.1rem; transition: transform 0.2s; box-sizing: border-box;">
+🚀 Follow @{TIKTOK_USERNAME} on TikTok
+</a>
+"""
+
+st.markdown(follow_button_html, unsafe_allow_html=True)
 
 # Social proof
 st.markdown(
