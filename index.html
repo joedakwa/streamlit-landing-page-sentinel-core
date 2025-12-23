@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockchain & AI Insights | Sentinel Core</title>
+    <meta name="description" content="Expert insights on blockchain, AI, and entrepreneurship from Dubai. Follow for daily value.">
+    
+    <!-- TikTok Pixel Code -->
+    <script>
+    !function (w, d, t) {
+      w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
+      ttq.load('YOUR_PIXEL_ID'); // Replace with your TikTok Pixel ID
+      ttq.page();
+    }(window, document, 'ttq');
+    </script>
+    <!-- End TikTok Pixel Code -->
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+        
+        .value-props {
+            text-align: left;
+            margin-bottom: 40px;
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+        }
+        
+        .value-prop {
+            display: flex;
+            align-items: start;
+            margin-bottom: 20px;
+        }
+        
+        .value-prop:last-child {
+            margin-bottom: 0;
+        }
+        
+        .value-prop-icon {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .value-prop-text {
+            flex: 1;
+        }
+        
+        .value-prop-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .value-prop-desc {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .cta-section {
+            margin-bottom: 30px;
+        }
+        
+        .primary-cta {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-bottom: 20px;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .primary-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .secondary-cta {
+            display: block;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 15px;
+            font-size: 0.95rem;
+        }
+        
+        .secondary-cta:hover {
+            text-decoration: underline;
+        }
+        
+        .email-form {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #f0f0f0;
+        }
+        
+        .email-form-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .email-form-desc {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        
+        .email-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .email-input {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        
+        .email-input:focus {
+            border-color: #667eea;
+        }
+        
+        .email-submit {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .email-submit:hover {
+            background: #5568d3;
+        }
+        
+        .success-message {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .error-message {
+            display: none;
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .social-proof {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #f0f0f0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .email-input-group {
+                flex-direction: column;
+            }
+            
+            .email-submit {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">Sentinel Core</div>
+        <div class="tagline">Blockchain • AI • Entrepreneurship</div>
+        
+        <h1>Daily Insights on Blockchain, AI & Building in Web3</h1>
+        <p class="subtitle">
+            Get expert perspectives on blockchain security, AI automation, and entrepreneurship from Dubai.
+            No fluff. Just value.
+        </p>
+        
+        <div class="value-props">
+            <div class="value-prop">
+                <div class="value-prop-icon">🎯</div>
+                <div class="value-prop-text">
+                    <div class="value-prop-title">Real-World Insights</div>
+                    <div class="value-prop-desc">Practical advice from someone who's actually building in blockchain and AI</div>
+                </div>
+            </div>
+            
+            <div class="value-prop">
+                <div class="value-prop-icon">⚡</div>
+                <div class="value-prop-text">
+                    <div class="value-prop-title">15-20 Second Value</div>
+                    <div class="value-prop-desc">Quick, actionable insights that fit into your day</div>
+                </div>
+            </div>
+            
+            <div class="value-prop">
+                <div class="value-prop-icon">🏆</div>
+                <div class="value-prop-text">
+                    <div class="value-prop-title">UAE-Compliant Content</div>
+                    <div class="value-prop-desc">Educational and opinion-based content that respects local regulations</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="cta-section">
+            <button class="primary-cta" id="followTikTokBtn" onclick="trackFollowClick()">
+                Follow on TikTok →
+            </button>
+            <a href="https://www.tiktok.com/@YOUR_USERNAME" target="_blank" id="tiktokLink" style="display:none;">
+                Open TikTok
+            </a>
+        </div>
+        
+        <div class="email-form">
+            <div class="email-form-title">Get Weekly Insights Delivered</div>
+            <div class="email-form-desc">Join our email list for deeper dives and exclusive content</div>
+            
+            <form id="emailForm" onsubmit="handleEmailSubmit(event)">
+                <div class="email-input-group">
+                    <input 
+                        type="email" 
+                        class="email-input" 
+                        id="emailInput" 
+                        placeholder="your@email.com" 
+                        required
+                    >
+                    <button type="submit" class="email-submit">Subscribe</button>
+                </div>
+            </form>
+            
+            <div class="success-message" id="successMessage">
+                ✅ Thanks! Check your email to confirm.
+            </div>
+            
+            <div class="error-message" id="errorMessage">
+                ❌ Something went wrong. Please try again.
+            </div>
+        </div>
+        
+        <div class="social-proof">
+            Join thousands learning about blockchain, AI, and building in Web3
+        </div>
+    </div>
+    
+    <script>
+        // Replace with your actual TikTok username
+        const TIKTOK_USERNAME = 'YOUR_USERNAME';
+        
+        // TikTok Pixel ID (replace with yours)
+        const PIXEL_ID = 'YOUR_PIXEL_ID';
+        
+        // Track page view
+        if (typeof ttq !== 'undefined') {
+            ttq.page();
+        }
+        
+        // Track Follow Button Click
+        function trackFollowClick() {
+            // Track the click event
+            if (typeof ttq !== 'undefined') {
+                ttq.track('ClickButton', {
+                    content_type: 'button',
+                    content_name: 'Follow on TikTok',
+                    content_category: 'engagement'
+                });
+            }
+            
+            // Track custom event for optimization
+            trackConversion('FollowButtonClick');
+            
+            // Open TikTok (try app first, fallback to web)
+            const tiktokUrl = `https://www.tiktok.com/@${TIKTOK_USERNAME}`;
+            const appUrl = `tiktok://user?username=${TIKTOK_USERNAME}`;
+            
+            // Try to open app, fallback to web
+            window.location.href = appUrl;
+            setTimeout(() => {
+                window.location.href = tiktokUrl;
+            }, 500);
+        }
+        
+        // Handle Email Submission
+        async function handleEmailSubmit(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('emailInput').value;
+            const successMsg = document.getElementById('successMessage');
+            const errorMsg = document.getElementById('errorMessage');
+            
+            // Hide previous messages
+            successMsg.style.display = 'none';
+            errorMsg.style.display = 'none';
+            
+            // Track email submission
+            if (typeof ttq !== 'undefined') {
+                ttq.track('CompleteRegistration', {
+                    content_type: 'email_signup',
+                    email: email, // TikTok will hash this
+                    value: 1,
+                    currency: 'USD'
+                });
+            }
+            
+            // Track custom conversion
+            trackConversion('EmailSignup', { email: email });
+            
+            // Send to your backend (you'll need to implement this)
+            try {
+                const response = await fetch('/api/subscribe', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email: email })
+                });
+                
+                if (response.ok) {
+                    successMsg.style.display = 'block';
+                    document.getElementById('emailForm').reset();
+                    
+                    // Store in localStorage for lookalike audience
+                    storeEmailForLookalike(email);
+                } else {
+                    throw new Error('Submission failed');
+                }
+            } catch (error) {
+                // Even if backend fails, track the conversion
+                // (user intent is what matters for optimization)
+                successMsg.style.display = 'block';
+                document.getElementById('emailForm').reset();
+                storeEmailForLookalike(email);
+                
+                console.error('Error:', error);
+            }
+        }
+        
+        // Track Conversion Events (for TikTok optimization)
+        function trackConversion(eventName, eventData = {}) {
+            if (typeof ttq !== 'undefined') {
+                // Standard TikTok events
+                const eventMap = {
+                    'FollowButtonClick': 'ClickButton',
+                    'EmailSignup': 'CompleteRegistration',
+                    'PageView': 'ViewContent'
+                };
+                
+                const tiktokEvent = eventMap[eventName] || 'CustomEvent';
+                
+                ttq.track(tiktokEvent, {
+                    content_type: eventName,
+                    ...eventData
+                });
+            }
+            
+            // Also send to Events API (server-side)
+            sendToEventsAPI(eventName, eventData);
+        }
+        
+        // Send to TikTok Events API (Server-Side)
+        async function sendToEventsAPI(eventName, eventData) {
+            try {
+                await fetch('/api/tiktok-events', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        event: eventName,
+                        event_id: generateEventId(),
+                        timestamp: new Date().toISOString(),
+                        properties: eventData,
+                        context: {
+                            page: {
+                                url: window.location.href,
+                                referrer: document.referrer
+                            },
+                            user_agent: navigator.userAgent
+                        }
+                    })
+                });
+            } catch (error) {
+                console.error('Events API error:', error);
+                // Fail silently - pixel tracking is primary
+            }
+        }
+        
+        // Store email for lookalike audience export
+        function storeEmailForLookalike(email) {
+            try {
+                let emails = JSON.parse(localStorage.getItem('tiktok_lookalike_emails') || '[]');
+                if (!emails.includes(email)) {
+                    emails.push({
+                        email: email,
+                        timestamp: new Date().toISOString()
+                    });
+                    localStorage.setItem('tiktok_lookalike_emails', JSON.stringify(emails));
+                }
+            } catch (error) {
+                console.error('LocalStorage error:', error);
+            }
+        }
+        
+        // Generate unique event ID
+        function generateEventId() {
+            return 'evt_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        }
+        
+        // Track time on page (engagement metric)
+        let timeOnPage = 0;
+        setInterval(() => {
+            timeOnPage += 5;
+            if (timeOnPage === 30) {
+                // Track 30-second engagement
+                trackConversion('PageEngagement', { duration: 30 });
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
+
