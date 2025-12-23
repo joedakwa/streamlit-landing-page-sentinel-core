@@ -14,7 +14,7 @@ st.set_page_config(
 )
 
 # Configuration (set in Streamlit secrets or environment)
-TIKTOK_USERNAME = st.secrets.get("TIKTOK_USERNAME", os.getenv("TIKTOK_USERNAME", "joedakwa"))
+TIKTOK_USERNAME = st.secrets.get("TIKTOK_USERNAME", os.getenv("TIKTOK_USERNAME", "joseph.dakwa"))
 TIKTOK_PIXEL_ID = st.secrets.get("TIKTOK_PIXEL_ID", os.getenv("TIKTOK_PIXEL_ID", "YOUR_PIXEL_ID"))
 
 # Custom CSS
@@ -87,6 +87,13 @@ tiktok_pixel_code = f"""
 
 # Inject TikTok Pixel
 st.markdown(tiktok_pixel_code, unsafe_allow_html=True)
+
+# Debug: Verify Pixel ID is set (remove this after verification)
+if TIKTOK_PIXEL_ID == "YOUR_PIXEL_ID":
+    st.warning("⚠️ TikTok Pixel ID not set! Please add TIKTOK_PIXEL_ID to Streamlit secrets.")
+else:
+    # Hidden debug message (comment out after testing)
+    st.markdown(f'<!-- TikTok Pixel ID: {TIKTOK_PIXEL_ID} -->', unsafe_allow_html=True)
 
 # Header
 st.markdown('<div style="text-align: center; margin-bottom: 0.5rem;"><h2 style="color: #667eea; margin: 0;">Sentinel Core</h2></div>', unsafe_allow_html=True)
