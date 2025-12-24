@@ -1,5 +1,6 @@
 """
-TikTok Landing Page - Streamlit App
+TikTok Landing Page - Enhanced Professional Streamlit App
+Inspired by Sentinel Core's professional design
 """
 import streamlit as st
 import os
@@ -9,19 +10,140 @@ from datetime import datetime
 st.set_page_config(
     page_title="Sentinel Core - Blockchain & AI Insights",
     page_icon="🚀",
-    layout="centered",
+    layout="wide",
     initial_sidebar_state="collapsed"
 )
 
-# Configuration (set in Streamlit secrets or environment)
-TIKTOK_USERNAME = st.secrets.get("TIKTOK_USERNAME", os.getenv("TIKTOK_USERNAME", "joseph.dakwa"))  # @joseph.dakwa
+# Configuration
+TIKTOK_USERNAME = st.secrets.get("TIKTOK_USERNAME", os.getenv("TIKTOK_USERNAME", "joseph.dakwa"))
 TIKTOK_PIXEL_ID = st.secrets.get("TIKTOK_PIXEL_ID", os.getenv("TIKTOK_PIXEL_ID", "YOUR_PIXEL_ID"))
 
-# Custom CSS
+# Enhanced Custom CSS
 st.markdown("""
 <style>
     .main {
-        padding: 2rem 1rem;
+        padding: 0;
+    }
+    .hero-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 4rem 2rem;
+        text-align: center;
+        border-radius: 0;
+        margin: -1rem -1rem 2rem -1rem;
+    }
+    .hero-title {
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+    .hero-subtitle {
+        font-size: 1.3rem;
+        opacity: 0.95;
+        margin-bottom: 2rem;
+    }
+    .section-title {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #333;
+        text-align: center;
+        margin: 3rem 0 2rem 0;
+    }
+    .section-subtitle {
+        text-align: center;
+        color: #666;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+    }
+    .value-card {
+        background: #f8f9fa;
+        padding: 2rem;
+        border-radius: 15px;
+        margin: 1rem 0;
+        border-left: 4px solid #667eea;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .value-card-title {
+        font-weight: bold;
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+        color: #333;
+    }
+    .value-card-desc {
+        color: #666;
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+    .service-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        margin: 1rem 0;
+        border: 2px solid #f0f0f0;
+        text-align: center;
+        transition: transform 0.2s;
+    }
+    .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+        border-color: #667eea;
+    }
+    .service-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+    .service-title {
+        font-weight: bold;
+        font-size: 1.2rem;
+        color: #333;
+        margin-bottom: 0.5rem;
+    }
+    .service-desc {
+        color: #666;
+        font-size: 0.95rem;
+    }
+    .stats-container {
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+        margin: 2rem 0;
+        flex-wrap: wrap;
+    }
+    .stat-item {
+        padding: 1.5rem;
+    }
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #667eea;
+    }
+    .stat-label {
+        color: #666;
+        font-size: 1rem;
+        margin-top: 0.5rem;
+    }
+    .testimonial-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        margin: 1rem 0;
+        border-left: 4px solid #764ba2;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .testimonial-text {
+        font-style: italic;
+        color: #555;
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+    }
+    .testimonial-author {
+        font-weight: bold;
+        color: #333;
+    }
+    .testimonial-company {
+        color: #667eea;
+        font-size: 0.9rem;
     }
     .stButton>button {
         width: 100%;
@@ -38,43 +160,24 @@ st.markdown("""
         transform: translateY(-2px);
         box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
     }
-    .value-prop {
-        background: #f8f9fa;
-        padding: 1.5rem;
-        border-radius: 10px;
-        margin: 1rem 0;
-    }
-    .value-prop-title {
-        font-weight: bold;
-        font-size: 1.1rem;
-        margin-bottom: 0.5rem;
-        color: #333;
-    }
-    .value-prop-desc {
-        color: #666;
-        font-size: 0.95rem;
-    }
-    h1 {
+    .cta-section {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 3rem 2rem;
+        border-radius: 20px;
         text-align: center;
-        margin-bottom: 1rem;
+        margin: 3rem 0;
     }
-    .subtitle {
+    .footer {
         text-align: center;
-        color: #666;
-        font-size: 1.1rem;
-        margin-bottom: 2rem;
-    }
-    .social-proof {
-        text-align: center;
-        color: #666;
-        margin-top: 2rem;
-        padding-top: 2rem;
+        color: #999;
+        padding: 2rem 0;
+        margin-top: 4rem;
         border-top: 2px solid #f0f0f0;
     }
 </style>
 """, unsafe_allow_html=True)
 
-# TikTok Pixel Code (inject into page)
+# TikTok Pixel Code
 tiktok_pixel_code = f"""
 <script>
 !function (w, d, t) {{
@@ -85,71 +188,256 @@ tiktok_pixel_code = f"""
 </script>
 """
 
-# Inject TikTok Pixel
 st.markdown(tiktok_pixel_code, unsafe_allow_html=True)
 
-# Debug: Verify Pixel ID is set (remove this after verification)
 if TIKTOK_PIXEL_ID == "YOUR_PIXEL_ID":
     st.warning("⚠️ TikTok Pixel ID not set! Please add TIKTOK_PIXEL_ID to Streamlit secrets.")
-else:
-    # Hidden debug message (comment out after testing)
-    st.markdown(f'<!-- TikTok Pixel ID: {TIKTOK_PIXEL_ID} -->', unsafe_allow_html=True)
 
-# Header
-st.markdown('<div style="text-align: center; margin-bottom: 0.5rem;"><h2 style="color: #667eea; margin: 0;">Sentinel Core</h2></div>', unsafe_allow_html=True)
-st.markdown('<p style="text-align: center; color: #666; margin-bottom: 1rem; font-size: 0.9rem;">Blockchain • AI • Entrepreneurship</p>', unsafe_allow_html=True)
-
-# Main heading
-st.markdown("# Daily Insights on Blockchain, AI & Building in Web3")
-
-# Subtitle
-st.markdown(
-    """
-    <p class="subtitle">
-        Get expert perspectives on blockchain security, AI automation, and building in Web3.<br>
-        No fluff. Just value.
-    </p>
-    """,
-    unsafe_allow_html=True
-)
-
-# Value propositions
-st.markdown("### What You'll Get")
-
+# ==================== HERO SECTION ====================
 st.markdown("""
-<div class="value-prop">
-    <div class="value-prop-title">🎯 Real-World Insights</div>
-    <div class="value-prop-desc">Practical advice from someone who's actually building in blockchain and AI</div>
+<div class="hero-section">
+    <div class="hero-title">🚀 Sentinel Core</div>
+    <div class="hero-subtitle">Daily Insights on Blockchain, AI & Building in Web3</div>
+    <p style="font-size: 1.1rem; opacity: 0.9;">Expert perspectives from real-world experience in blockchain security, AI automation, and Web3 development</p>
 </div>
 """, unsafe_allow_html=True)
 
+# ==================== STATS SECTION ====================
 st.markdown("""
-<div class="value-prop">
-    <div class="value-prop-title">⚡ 15-20 Second Value</div>
-    <div class="value-prop-desc">Quick, actionable insights that fit into your day</div>
+<div class="stats-container">
+    <div class="stat-item">
+        <div class="stat-number">100+</div>
+        <div class="stat-label">Smart Contracts Audited</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">50+</div>
+        <div class="stat-label">AI Solutions Deployed</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">15+</div>
+        <div class="stat-label">Blockchain Protocols</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">24/7</div>
+        <div class="stat-label">Expert Support</div>
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
-st.markdown("""
-<div class="value-prop">
-    <div class="value-prop-title">🎓 Expert Insights</div>
-    <div class="value-prop-desc">Learn from real-world experience building blockchain and AI solutions</div>
-</div>
-""", unsafe_allow_html=True)
-
-# Primary CTA - Newsletter Signup
 st.markdown("---")
-st.markdown("### Get Free Weekly Newsletter")
-st.markdown("Join our newsletter for deeper insights, exclusive content, and weekly roundups of the best blockchain & AI insights.")
+
+# ==================== WHAT YOU'LL GET SECTION ====================
+st.markdown('<div class="section-title">💡 What You\'ll Get</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-subtitle">Practical insights delivered daily to your TikTok feed</div>', unsafe_allow_html=True)
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.markdown("""
+    <div class="value-card">
+        <div class="value-card-title">🎯 Real-World Insights</div>
+        <div class="value-card-desc">Learn from actual blockchain audits, AI implementations, and Web3 projects. No theory—just proven strategies.</div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class="value-card">
+        <div class="value-card-title">⚡ Quick Value</div>
+        <div class="value-card-desc">15-20 second videos packed with actionable insights. Learn something valuable in seconds, not hours.</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col2:
+    st.markdown("""
+    <div class="value-card">
+        <div class="value-card-title">🎓 Expert Knowledge</div>
+        <div class="value-card-desc">Insights from a team that's audited protocols on Arbitrum, Sablier, and built AI solutions for enterprise clients.</div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class="value-card">
+        <div class="value-card-title">🚀 Stay Ahead</div>
+        <div class="value-card-desc">Get the latest on blockchain security, AI automation, smart contract development, and Web3 trends.</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+st.markdown("---")
+
+# ==================== OUR EXPERTISE SECTION ====================
+st.markdown('<div class="section-title">🔧 Our Expertise</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-subtitle">What we specialize in</div>', unsafe_allow_html=True)
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.markdown("""
+    <div class="service-card">
+        <div class="service-icon">🔐</div>
+        <div class="service-title">Blockchain Security</div>
+        <div class="service-desc">Smart contract audits for DeFi protocols, NFT projects, and blockchain applications. Security-first approach.</div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class="service-card">
+        <div class="service-icon">🤖</div>
+        <div class="service-title">AI Solutions</div>
+        <div class="service-desc">Custom AI agents, chatbots, document intelligence, and automation solutions for enterprise.</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col2:
+    st.markdown("""
+    <div class="service-card">
+        <div class="service-icon">⚙️</div>
+        <div class="service-title">Smart Contracts</div>
+        <div class="service-desc">Development and auditing of DeFi protocols, token contracts, staking platforms, and blockchain infrastructure.</div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class="service-card">
+        <div class="service-icon">🌐</div>
+        <div class="service-title">Web3 Development</div>
+        <div class="service-desc">Full-stack Web3 applications, dApps, tokenomics design, and decentralized solutions.</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col3:
+    st.markdown("""
+    <div class="service-card">
+        <div class="service-icon">💼</div>
+        <div class="service-title">Enterprise AI</div>
+        <div class="service-desc">AI-powered business automation, document processing, customer support bots, and intelligent workflows.</div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class="service-card">
+        <div class="service-icon">📱</div>
+        <div class="service-title">Mobile & Web Apps</div>
+        <div class="service-desc">Modern web applications, mobile apps for fintech and crypto, with integrated AI features.</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+st.markdown("---")
+
+# ==================== PROJECTS SHOWCASE ====================
+st.markdown('<div class="section-title">🏗️ What We\'ve Built</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-subtitle">Real projects we\'ve delivered</div>', unsafe_allow_html=True)
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.markdown("""
+    <div class="value-card">
+        <div class="value-card-title">🤖 AI Trading Bot</div>
+        <div class="value-card-desc">Machine learning trading system with real-time sentiment analysis and dynamic strategy adjustment.</div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class="value-card">
+        <div class="value-card-title">⚖️ AI Legal Research Assistant</div>
+        <div class="value-card-desc">RAG-based chatbot for case law summaries and contract analysis with OCR integration.</div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class="value-card">
+        <div class="value-card-title">💱 DeFi Lending Platform</div>
+        <div class="value-card-desc">Non-custodial money market with collateral management, borrowing, and yield farming.</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col2:
+    st.markdown("""
+    <div class="value-card">
+        <div class="value-card-title">📄 Document Intelligence</div>
+        <div class="value-card-desc">LangChain-powered document search engine for enterprise internal knowledge bases.</div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class="value-card">
+        <div class="value-card-title">💼 Crypto Payroll System</div>
+        <div class="value-card-desc">Blockchain-native payroll platform with automated stablecoin payments and on-chain reporting.</div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class="value-card">
+        <div class="value-card-title">🏢 Enterprise CRM</div>
+        <div class="value-card-desc">Blockchain-integrated CRM with banking connections and KYC-aware dashboards.</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+st.markdown("---")
+
+# ==================== TESTIMONIALS ====================
+st.markdown('<div class="section-title">💬 What Clients Say</div>', unsafe_allow_html=True)
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.markdown("""
+    <div class="testimonial-card">
+        <div class="testimonial-text">"Sentinel Core's expertise in smart contract security was evident from the start. Their ability to identify and address potential vulnerabilities was unparalleled."</div>
+        <div class="testimonial-author">Ricky Magalhaes</div>
+        <div class="testimonial-company">Enhalo</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col2:
+    st.markdown("""
+    <div class="testimonial-card">
+        <div class="testimonial-text">"Sentinel Core provided us with the assurance we needed to move forward confidently with our project. Their thorough security review was exceptional."</div>
+        <div class="testimonial-author">Steve Cochrane</div>
+        <div class="testimonial-company">Stabiliti</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+st.markdown("---")
+
+# ==================== PRIMARY CTA SECTION ====================
+st.markdown("""
+<div class="cta-section">
+    <h2 style="font-size: 2.5rem; margin-bottom: 1rem; color: #333;">🚀 Get Daily Blockchain & AI Insights</h2>
+    <p style="font-size: 1.2rem; color: #666; margin-bottom: 2rem;">Follow on TikTok for expert perspectives delivered to your feed</p>
+</div>
+""", unsafe_allow_html=True)
+
+# TikTok Follow Button
+tiktok_url = f"https://www.tiktok.com/@{TIKTOK_USERNAME}"
+follow_button_html = f"""
+<a href="{tiktok_url}" 
+   target="_blank" 
+   rel="noopener noreferrer"
+   onclick="if (typeof ttq !== 'undefined') {{ ttq.track('CompleteRegistration', {{ content_type: 'button', content_name: 'Follow on TikTok', content_category: 'engagement' }}); }}"
+   style="display: inline-block; width: 100%; text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.2rem 2rem; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.2rem; transition: transform 0.2s; box-sizing: border-box;">
+🚀 Follow @{TIKTOK_USERNAME} on TikTok
+</a>
+"""
+
+st.markdown(follow_button_html, unsafe_allow_html=True)
+
+st.markdown("<br>", unsafe_allow_html=True)
+
+# ==================== SECONDARY CTA - NEWSLETTER ====================
+st.markdown("---")
+st.markdown("### 📧 Get Deeper Insights via Newsletter")
+st.markdown("Join our newsletter for weekly roundups, exclusive content, and in-depth blockchain & AI insights.")
 
 with st.form("newsletter_signup", clear_on_submit=True):
-    email = st.text_input("Your email address", placeholder="your@email.com", type="default")
-    submitted = st.form_submit_button("📧 Sign Up for Free Newsletter", use_container_width=True)
+    col1, col2 = st.columns([3, 1])
+    with col1:
+        email = st.text_input("Your email address", placeholder="your@email.com", type="default", label_visibility="collapsed")
+    with col2:
+        submitted = st.form_submit_button("📧 Subscribe", use_container_width=True)
     
     if submitted and email:
-        # Validate email
         if "@" in email and "." in email:
-            # Track conversion (CompleteRegistration is the standard TikTok event for signups)
             conversion_script = f"""
             <script>
                 if (typeof ttq !== 'undefined') {{
@@ -164,12 +452,8 @@ with st.form("newsletter_signup", clear_on_submit=True):
             </script>
             """
             st.markdown(conversion_script, unsafe_allow_html=True)
+            st.success("✅ Thanks for subscribing! Check your email to confirm.")
             
-            # Store email (in production, save to database)
-            # For now, just show success message
-            st.success("✅ Thanks for signing up! Check your email to confirm your subscription.")
-            
-            # Optional: Store in session state or send to backend
             if 'subscribed_emails' not in st.session_state:
                 st.session_state.subscribed_emails = []
             st.session_state.subscribed_emails.append({
@@ -181,41 +465,11 @@ with st.form("newsletter_signup", clear_on_submit=True):
     elif submitted:
         st.error("❌ Please enter your email address")
 
-# Secondary CTA - Follow on TikTok
-st.markdown("---")
-st.markdown("### Also Follow on TikTok")
-st.markdown("Get daily insights delivered to your TikTok feed")
-
-# TikTok Follow Button - Direct link (more reliable than JavaScript)
-tiktok_url = f"https://www.tiktok.com/@{TIKTOK_USERNAME}"
-
-# Create styled button link with TikTok Pixel tracking
-follow_button_html = f"""
-<a href="{tiktok_url}" 
-   target="_blank" 
-   rel="noopener noreferrer"
-   onclick="if (typeof ttq !== 'undefined') {{ ttq.track('ClickButton', {{ content_type: 'button', content_name: 'Follow on TikTok', content_category: 'engagement' }}); }}"
-   style="display: inline-block; width: 100%; text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1rem 2rem; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.1rem; transition: transform 0.2s; box-sizing: border-box;">
-🚀 Follow @{TIKTOK_USERNAME} on TikTok
-</a>
-"""
-
-st.markdown(follow_button_html, unsafe_allow_html=True)
-
-# Social proof
-st.markdown(
-    """
-    <div class="social-proof">
-        Join thousands learning about blockchain, AI, and building in Web3
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-
-# Footer
-st.markdown("---")
-st.markdown(
-    '<p style="text-align: center; color: #999; font-size: 0.8rem;">© 2025 Sentinel Core. All rights reserved.</p>',
-    unsafe_allow_html=True
-)
-
+# ==================== FOOTER ====================
+st.markdown("""
+<div class="footer">
+    <p style="font-size: 0.9rem; margin-bottom: 0.5rem;"><strong>Sentinel Core</strong></p>
+    <p style="font-size: 0.8rem;">Blockchain Security • AI Solutions • Web3 Development</p>
+    <p style="font-size: 0.8rem; margin-top: 1rem;">© 2025 Sentinel Core. All rights reserved.</p>
+</div>
+""", unsafe_allow_html=True)
