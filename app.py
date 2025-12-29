@@ -5,7 +5,7 @@ Inspired by Sentinel Core's professional design
 import streamlit as st
 import os
 from datetime import datetime
-from email_backend import EmailStorage
+from email_backend import EmailStorage, BrevoIntegration
 
 # Page config
 st.set_page_config(
@@ -441,10 +441,20 @@ with st.form("newsletter_signup", clear_on_submit=True):
         if "@" in email and "." in email:
             # Initialize email storage
             try:
-                storage = EmailStorage()
-                success, message = storage.add_email(email, source="tiktok_landing_page")
+                # Try Brevo first (if API key is set)
+                brevo_api_key = st.secrets.get("BREVO_API_KEY", os.getenv("BREVO_API_KEY"))
+                brevo_success = False
                 
-                if success:
+                if brevo_api_key:
+                    brevo = BrevoIntegration(api_key=brevo_api_key)
+                    brevo_success = brevo.add_contact(email)
+                
+                # Also save to local database (backup)
+                storage = EmailStorage()
+                db_success, db_message = storage.add_email(email, source="tiktok_landing_page")
+                
+                # If either Brevo or database succeeded, show success
+                if brevo_success or db_success:
                     # Track TikTok conversion
                     conversion_script = f"""
                     <script>
@@ -462,7 +472,9 @@ with st.form("newsletter_signup", clear_on_submit=True):
                     st.markdown(conversion_script, unsafe_allow_html=True)
                     st.success("✅ Thanks for subscribing! Check your email to confirm.")
                 else:
-                    st.warning(f"⚠️ {message}")
+                    # Only show warning if both failed
+                    if not brevo_success and not db_success:
+                        st.warning(f"⚠️ {db_message}")
             except Exception as e:
                 st.error(f"❌ Error saving email. Please try again.")
                 st.exception(e)  # Show error in debug mode
