@@ -5,6 +5,7 @@ Inspired by Sentinel Core's professional design
 import streamlit as st
 import os
 from datetime import datetime
+from email_backend import EmailStorage
 
 # Page config
 st.set_page_config(
@@ -438,28 +439,33 @@ with st.form("newsletter_signup", clear_on_submit=True):
     
     if submitted and email:
         if "@" in email and "." in email:
-            conversion_script = f"""
-            <script>
-                if (typeof ttq !== 'undefined') {{
-                    ttq.track('CompleteRegistration', {{
-                        content_type: 'newsletter_signup',
-                        content_name: 'Free Newsletter Signup',
-                        email: '{email}',
-                        value: 1,
-                        currency: 'USD'
-                    }});
-                }}
-            </script>
-            """
-            st.markdown(conversion_script, unsafe_allow_html=True)
-            st.success("✅ Thanks for subscribing! Check your email to confirm.")
-            
-            if 'subscribed_emails' not in st.session_state:
-                st.session_state.subscribed_emails = []
-            st.session_state.subscribed_emails.append({
-                'email': email,
-                'timestamp': datetime.now().isoformat()
-            })
+            # Initialize email storage
+            try:
+                storage = EmailStorage()
+                success, message = storage.add_email(email, source="tiktok_landing_page")
+                
+                if success:
+                    # Track TikTok conversion
+                    conversion_script = f"""
+                    <script>
+                        if (typeof ttq !== 'undefined') {{
+                            ttq.track('CompleteRegistration', {{
+                                content_type: 'newsletter_signup',
+                                content_name: 'Free Newsletter Signup',
+                                email: '{email}',
+                                value: 1,
+                                currency: 'USD'
+                            }});
+                        }}
+                    </script>
+                    """
+                    st.markdown(conversion_script, unsafe_allow_html=True)
+                    st.success("✅ Thanks for subscribing! Check your email to confirm.")
+                else:
+                    st.warning(f"⚠️ {message}")
+            except Exception as e:
+                st.error(f"❌ Error saving email. Please try again.")
+                st.exception(e)  # Show error in debug mode
         else:
             st.error("❌ Please enter a valid email address")
     elif submitted:

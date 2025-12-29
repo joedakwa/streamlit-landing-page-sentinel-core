@@ -5,6 +5,7 @@ data/
 *.log
 .DS_Store
 *.csv
+*.db
 dist/
 build/
 __pycache__/
