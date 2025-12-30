@@ -28,12 +28,10 @@ st.markdown("""
     .hero-section {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
-        padding: 4rem 2rem 2rem 2rem;
+        padding: 4rem 2rem;
         text-align: center;
-        border-radius: 20px 20px 0 0;
-        margin: -1rem auto 0 auto;
-        max-width: 700px;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        border-radius: 0;
+        margin: -1rem -1rem 2rem -1rem;
     }
     .hero-title {
         font-size: 3rem;
@@ -177,24 +175,6 @@ st.markdown("""
         margin-top: 4rem;
         border-top: 2px solid #f0f0f0;
     }
-    .newsletter-title-hero {
-        font-size: 1.5rem;
-        font-weight: bold;
-        margin-bottom: 0.5rem;
-        color: white;
-        text-align: center;
-    }
-    .newsletter-desc-hero {
-        font-size: 1rem;
-        opacity: 0.95;
-        margin-bottom: 0;
-        color: white;
-        text-align: center;
-    }
-    div[data-testid="stForm"] {
-        margin-top: 0 !important;
-        padding: 0 !important;
-    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -214,28 +194,14 @@ st.markdown(tiktok_pixel_code, unsafe_allow_html=True)
 if TIKTOK_PIXEL_ID == "YOUR_PIXEL_ID":
     st.warning("⚠️ TikTok Pixel ID not set! Please add TIKTOK_PIXEL_ID to Streamlit secrets.")
 
-# ==================== HERO SECTION ====================
-st.markdown("""
-<div class="hero-section">
-    <div class="hero-title">🚀 Sentinel Core</div>
-    <div class="hero-subtitle">Daily Insights on Blockchain, AI & Building in Web3</div>
-    <p style="font-size: 1.1rem; opacity: 0.9; margin-bottom: 2rem;">Expert perspectives from real-world experience in blockchain security, AI automation, and Web3 development</p>
-    
-    <div style="margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2);">
-        <div class="newsletter-title-hero">📧 Get FREE AI & Blockchain Insights</div>
-        <div class="newsletter-desc-hero">Join our newsletter for weekly roundups, exclusive content, and in-depth AI & Blockchain insights.</div>
-    </div>
-</div>
-""", unsafe_allow_html=True)
+# ==================== NEWSLETTER CTA - TOP OF PAGE ====================
+st.markdown("### Get FREE AI & Blockchain Insights & Advice")
+st.markdown("Join our newsletter for deeper insights, exclusive content, and weekly roundups of the best AI & Blockchain insights.")
 
-# Newsletter Form (positioned to connect visually with hero section)
-st.markdown("""
-<div style="background: white; padding: 1.5rem; border-radius: 0 0 20px 20px; margin: 0 auto 2rem auto; max-width: 700px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);">
-""", unsafe_allow_html=True)
-with st.form("newsletter_signup_hero", clear_on_submit=True):
+with st.form("newsletter_signup", clear_on_submit=True):
     col1, col2 = st.columns([3, 1])
     with col1:
-        email = st.text_input("Your email address", placeholder="your@email.com", type="default", label_visibility="collapsed", key="hero_email_input")
+        email = st.text_input("Your email address", placeholder="your@email.com", type="default", label_visibility="collapsed")
     with col2:
         submitted = st.form_submit_button("📧 Subscribe", use_container_width=True)
     
@@ -285,7 +251,16 @@ with st.form("newsletter_signup_hero", clear_on_submit=True):
     elif submitted:
         st.error("❌ Please enter your email address")
 
-st.markdown('</div>', unsafe_allow_html=True)
+st.markdown("---")
+
+# ==================== HERO SECTION ====================
+st.markdown("""
+<div class="hero-section">
+    <div class="hero-title">🚀 Sentinel Core</div>
+    <div class="hero-subtitle">Daily Insights on Blockchain, AI & Building in Web3</div>
+    <p style="font-size: 1.1rem; opacity: 0.9;">Expert perspectives from real-world experience in blockchain security, AI automation, and Web3 development</p>
+</div>
+""", unsafe_allow_html=True)
 
 # ==================== STATS SECTION ====================
 st.markdown("""
