@@ -175,6 +175,40 @@ st.markdown("""
         margin-top: 4rem;
         border-top: 2px solid #f0f0f0;
     }
+    .newsletter-form-hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 2rem;
+        border-radius: 20px;
+        margin: -2rem auto 0 auto;
+        max-width: 700px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+    .newsletter-title-hero {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: white;
+        text-align: center;
+    }
+    .newsletter-desc-hero {
+        font-size: 1rem;
+        opacity: 0.95;
+        margin-bottom: 0;
+        color: white;
+        text-align: center;
+    }
+    .newsletter-form-wrapper {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 0 0 20px 20px;
+        margin: 0 auto 2rem auto;
+        max-width: 700px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+    div[data-testid="stForm"] {
+        margin-top: 0 !important;
+        padding: 0 !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -199,9 +233,74 @@ st.markdown("""
 <div class="hero-section">
     <div class="hero-title">🚀 Sentinel Core</div>
     <div class="hero-subtitle">Daily Insights on Blockchain, AI & Building in Web3</div>
-    <p style="font-size: 1.1rem; opacity: 0.9;">Expert perspectives from real-world experience in blockchain security, AI automation, and Web3 development</p>
+    <p style="font-size: 1.1rem; opacity: 0.9; margin-bottom: 2rem;">Expert perspectives from real-world experience in blockchain security, AI automation, and Web3 development</p>
 </div>
 """, unsafe_allow_html=True)
+
+# Newsletter CTA in Hero Section
+st.markdown("""
+<div class="newsletter-form-hero">
+    <div class="newsletter-title-hero">📧 Get Deeper Insights via Newsletter</div>
+    <div class="newsletter-desc-hero">Join our newsletter for weekly roundups, exclusive content, and in-depth blockchain & AI insights.</div>
+</div>
+""", unsafe_allow_html=True)
+
+# Newsletter Form (outside HTML div for Streamlit compatibility)
+st.markdown('<div class="newsletter-form-wrapper">', unsafe_allow_html=True)
+with st.form("newsletter_signup_hero", clear_on_submit=True):
+    col1, col2 = st.columns([3, 1])
+    with col1:
+        email = st.text_input("Your email address", placeholder="your@email.com", type="default", label_visibility="collapsed", key="hero_email_input")
+    with col2:
+        submitted = st.form_submit_button("📧 Subscribe", use_container_width=True)
+    
+    if submitted and email:
+        if "@" in email and "." in email:
+            # Initialize email storage
+            try:
+                # Try Brevo first (if API key is set)
+                brevo_api_key = st.secrets.get("BREVO_API_KEY", os.getenv("BREVO_API_KEY"))
+                brevo_success = False
+                
+                if brevo_api_key:
+                    brevo = BrevoIntegration(api_key=brevo_api_key)
+                    brevo_success = brevo.add_contact(email)
+                
+                # Also save to local database (backup)
+                storage = EmailStorage()
+                db_success, db_message = storage.add_email(email, source="tiktok_landing_page")
+                
+                # If either Brevo or database succeeded, show success
+                if brevo_success or db_success:
+                    # Track TikTok conversion
+                    conversion_script = f"""
+                    <script>
+                        if (typeof ttq !== 'undefined') {{
+                            ttq.track('CompleteRegistration', {{
+                                content_type: 'newsletter_signup',
+                                content_name: 'Free Newsletter Signup',
+                                email: '{email}',
+                                value: 1,
+                                currency: 'USD'
+                            }});
+                        }}
+                    </script>
+                    """
+                    st.markdown(conversion_script, unsafe_allow_html=True)
+                    st.success("✅ Thanks for subscribing! Check your email to confirm.")
+                else:
+                    # Only show warning if both failed
+                    if not brevo_success and not db_success:
+                        st.warning(f"⚠️ {db_message}")
+            except Exception as e:
+                st.error(f"❌ Error saving email. Please try again.")
+                st.exception(e)  # Show error in debug mode
+        else:
+            st.error("❌ Please enter a valid email address")
+    elif submitted:
+        st.error("❌ Please enter your email address")
+
+st.markdown('</div>', unsafe_allow_html=True)
 
 # ==================== STATS SECTION ====================
 st.markdown("""
@@ -424,64 +523,6 @@ follow_button_html = f"""
 st.markdown(follow_button_html, unsafe_allow_html=True)
 
 st.markdown("<br>", unsafe_allow_html=True)
-
-# ==================== SECONDARY CTA - NEWSLETTER ====================
-st.markdown("---")
-st.markdown("### 📧 Get Deeper Insights via Newsletter")
-st.markdown("Join our newsletter for weekly roundups, exclusive content, and in-depth blockchain & AI insights.")
-
-with st.form("newsletter_signup", clear_on_submit=True):
-    col1, col2 = st.columns([3, 1])
-    with col1:
-        email = st.text_input("Your email address", placeholder="your@email.com", type="default", label_visibility="collapsed")
-    with col2:
-        submitted = st.form_submit_button("📧 Subscribe", use_container_width=True)
-    
-    if submitted and email:
-        if "@" in email and "." in email:
-            # Initialize email storage
-            try:
-                # Try Brevo first (if API key is set)
-                brevo_api_key = st.secrets.get("BREVO_API_KEY", os.getenv("BREVO_API_KEY"))
-                brevo_success = False
-                
-                if brevo_api_key:
-                    brevo = BrevoIntegration(api_key=brevo_api_key)
-                    brevo_success = brevo.add_contact(email)
-                
-                # Also save to local database (backup)
-                storage = EmailStorage()
-                db_success, db_message = storage.add_email(email, source="tiktok_landing_page")
-                
-                # If either Brevo or database succeeded, show success
-                if brevo_success or db_success:
-                    # Track TikTok conversion
-                    conversion_script = f"""
-                    <script>
-                        if (typeof ttq !== 'undefined') {{
-                            ttq.track('CompleteRegistration', {{
-                                content_type: 'newsletter_signup',
-                                content_name: 'Free Newsletter Signup',
-                                email: '{email}',
-                                value: 1,
-                                currency: 'USD'
-                            }});
-                        }}
-                    </script>
-                    """
-                    st.markdown(conversion_script, unsafe_allow_html=True)
-                    st.success("✅ Thanks for subscribing! Check your email to confirm.")
-                else:
-                    # Only show warning if both failed
-                    if not brevo_success and not db_success:
-                        st.warning(f"⚠️ {db_message}")
-            except Exception as e:
-                st.error(f"❌ Error saving email. Please try again.")
-                st.exception(e)  # Show error in debug mode
-        else:
-            st.error("❌ Please enter a valid email address")
-    elif submitted:
-        st.error("❌ Please enter your email address")
 
 # ==================== FOOTER ====================
 st.markdown("""
